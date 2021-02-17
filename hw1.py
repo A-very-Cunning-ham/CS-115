@@ -1,7 +1,7 @@
 '''
 Avery Cunningham
 Homework 1
-2/11/2021
+2/17/2021
 
 I pledge my honor that I have abided by the Stevens Honor System
 '''
@@ -35,6 +35,7 @@ def divides(n):
         return n % k == 0
     return div
 
-def primes(n):
+
+def prime(n):
     """Returns true if integer n is prime, and false if it is coprime"""
     return sum(map(divides(n), range(2, n))) == 0 and n > 1
