@@ -38,17 +38,3 @@ def divides(n):
 def primes(n):
     """Returns true if integer n is prime, and false if it is coprime"""
     return sum(map(divides(n), range(2, n))) == 0 and n > 1
-
-print(factorial(10))
-print(len(range(1, 10)))
-print(mean([1, 2, 3, 4]))
-print(divides(5))
-
-print(primes(7))
-print(primes(42))
-print(primes(43))
-print(primes(7919))
-print(primes(7918))
-
-
-print(map(primes, range(1, 1000)))
