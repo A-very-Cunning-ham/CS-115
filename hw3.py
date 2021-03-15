@@ -19,8 +19,10 @@ def giveChange(amount, coins):
     """Returns the minimum number of coins needed to make a given change value with the given list of coins, and returns the coins used"""
     if amount == 0:
         return [0, []]
-    elif coins == [] or coins[0] > amount:
+    elif coins == []:
         return [float("inf"), []]
+    elif coins[0] > amount:
+        return giveChange(amount, coins[1:])
     else:
         useIt = giveChange(amount - coins[0], coins)
         # useIt[0] += 1
@@ -33,6 +35,8 @@ def giveChange(amount, coins):
 print(giveChange(48, [1, 5, 10, 25, 50]))
 print(giveChange(48, [1, 7, 24, 42]))
 print(giveChange(35, [1, 3, 16, 30, 50]))
+print("ta test")
+print(giveChange(48, [50, 25, 10, 5, 1]))
 
 # Here's the list of letter values and a small dictionary to use.
 # Leave the following lists in place.
@@ -78,12 +82,13 @@ def wordsWithScore(dct, scores):
 
     def wordAndScore(word):
         """Returns a list with the given word and its score as determined by wordScore()"""
-        return [word, wordScore(word, scrabbleScores)]
+        return [word, wordScore(word, scores)]
 
     return map(wordAndScore, dct)
 
 
 print(wordsWithScore(Dictionary, scrabbleScores))
+print(wordsWithScore(['a', 'am', 'at', 'apple', 'bat', 'bar', 'babble', 'can', 'foo', 'spam', 'spammy', 'zzyzva'], [['a', 3], ['b', 7], ['c', 7], ['d', 5], ['e', 3], ['f', 9], ['g', 5], ['h', 9], ['i', 3], ['j', 17], ['k', 11], ['l', 3], ['m', 7], ['n', 3], ['o', 3], ['p', 7], ['q', 21], ['r', 3], ['s', 3], ['t', 3], ['u', 3], ['v', 9], ['w', 9], ['x', 17], ['y', 9], ['z', 21]]) == [['a', 3], ['am', 10], ['at', 6], ['apple', 23], ['bat', 13], ['bar', 13], ['babble', 30], ['can', 13], ['foo', 15], ['spam', 20], ['spammy', 36], ['zzyzva', 84]])
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' PROBLEM 2
