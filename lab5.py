@@ -40,13 +40,13 @@ def fastED(first, second):
         memo[(first, second)] = len(first)
         return len(first)
     elif first[0] == second[0]:
-        ans = ED(first[1:], second[1:])
+        ans = fastED(first[1:], second[1:])
         memo[(first, second)] = ans
         return ans
     else:
-        substitution = 1 + ED(first[1:], second[1:])
-        deletion = 1 + ED(first[1:], second)
-        insertion = 1 + ED(first, second[1:])
+        substitution = 1 + fastED(first[1:], second[1:])
+        deletion = 1 + fastED(first[1:], second)
+        insertion = 1 + fastED(first, second[1:])
         ans = min(substitution, deletion, insertion)
         memo[(first, second)] = ans
         return ans
