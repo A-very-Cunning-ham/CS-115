@@ -43,13 +43,14 @@ def testXOR():
     assert XOR(1,1) == 0
     print("testXOR success")
 
+testXOR()
 
 # EXERCISE
 # Define this function as a single return using
 # only the logic gate functions.
 def gor3(x,y,z):
     '''Or of three inputs.'''
-    return None
+    return gor(gor(x,y), z)
 
 
 # EXERCISE
@@ -66,7 +67,9 @@ def FA(x,y,cin):
     Return the pair of bits (carry_out,sum) such that
     sum is the low bit of x+y+cin and carry_out is
     the high bit of x+y+carry_in.'''
-    return None
+    s = XOR(XOR(x, y), cin)
+    c = gor(gand(x,y), gand(cin, XOR(x, y)))
+    return (c, s)
 
             
 def FAtest(x,y,c):
@@ -76,11 +79,12 @@ def FAtest(x,y,c):
     return (d,s)
 
 def testFA():
-    assert FA(0,0,0) == FAtest(0,0,0) 
-    assert FA(0,1,0) == FAtest(0,1,0) 
+    assert FA(0,0,0) == FAtest(0,0,0)
+    assert FA(0,1,0) == FAtest(0,1,0)
     assert FA(1,1,1) == FAtest(1,1,1)
     print("testFA successful on 3 out of 8 cases")
 
+testFA()
 
 # Review slide 12 of Lecture 6 ("A Circuit for Adding") before continuing.
 
@@ -110,6 +114,8 @@ def test_twoBitAdd():
     assert( ww == (1,0) and c == 1 )
     print("test_twoBitAdd worked (but incomplete test)")
 
+test_twoBitAdd()
+
 
 # EXERCISE: implement the following, using gates and/or FA.
 # Hint: you might start by defining something like twoBitAdd
@@ -120,11 +126,21 @@ def fourBitAdd(xxxx,yyyy):
     with xe the high-order bit (i.e., eight's place).  Likewise
     yyyy.  Return (c,zzzz) where zzzz is their four-bit sum
     and c is the carry.'''
-    return None
+    (c,sum1) = FA(xxxx[3],yyyy[3],0)
+    (c,sum2) = FA(xxxx[2],yyyy[2],c)
+    (c,sum3) = FA(xxxx[1],yyyy[1],c)
+    (c,sum4) = FA(xxxx[0],yyyy[0],c)
+    return (c,(sum4,sum3,sum2,sum1))
 
 # EXERCISE: implement the following.
 def test_fourBitAdd():
     '''at least four test cases'''
-    pass
+    assert fourBitAdd((0,0,0,0), (0,0,0,0)) == (0, (0,0,0,0))
+    assert fourBitAdd((0,0,0,1), (0,0,0,0)) == (0, (0,0,0,1))
+    assert fourBitAdd((0,0,1,0), (0,0,0,0)) == (0, (0,0,1,0))
+    assert fourBitAdd((1,0,0,0), (1,0,0,0)) == (1, (0,0,0,0))
+    assert fourBitAdd((1,1,1,1), (0,1,1,0)) == (1, (0,1,0,1))
+    assert fourBitAdd((1,1,1,1), (1,1,1,1)) == (1, (1,1,1,0))
+    print("test_fourBitBitAdd worked")
 
-    
+test_fourBitAdd()
