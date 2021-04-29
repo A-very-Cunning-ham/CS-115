@@ -1,4 +1,11 @@
 # nim template DNaumann (2018), for assignment nim_hw11.txt 
+"""
+Created on 4/28/21
+@author:   Avery Cunningham
+Pledge:    I pledge my honor that I have abided by the Stevens Honor System
+
+CS115 - HW 11
+"""
 
 # Global variables used by several functions
 piles = []         # list containing the current pile amounts
